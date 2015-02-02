@@ -36,9 +36,9 @@ long time, oldTime;
 //^^^ all for PD controller
 
 
-#define Kp  40 //50 for tuning
+#define Kp  65 //50 for tuning
 #define Ki  0
-#define Kd  1.35
+#define Kd  0
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
  
 // PID_ATune aTune(&Input, &Output);
@@ -83,8 +83,8 @@ void loop()
  time = millis();
     
 Serial.print(Input);
-Serial.print(", ");
-Serial.print(time);
+//Serial.print(", ");
+//Serial.print(time);
 Serial.print('\n'); 
   
    
