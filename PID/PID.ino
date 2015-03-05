@@ -1,7 +1,6 @@
 #include <PID_AutoTune_v0.h>
 #include <PID_v1.h>
 #include <Wire.h>
-// #include <Adafruit_MotorShield.h>
 #include <Encoder.h>
 #include <Servo.h>
 
@@ -45,16 +44,11 @@ int value = 877;
 char buffer[5];
 void setup() 
 {
-  // AFMS.begin();
   
   myservo.attach(9);
 
   pinMode(leftLimitSwitch, INPUT_PULLUP);
   pinMode(rightLimitSwitch, INPUT_PULLUP);
-
-  //pinMode(pinIN1,OUTPUT);
- // pinMode(pinIN2,OUTPUT);
- // pinMode(motorEnableA,OUTPUT);
 
   Serial.begin(9600);
 
@@ -68,10 +62,7 @@ void setup()
 
 void stop()//
 {
- // digitalWrite(motorEnableA,LOW);// Unenble the pin, to stop the motor. this should be done to avid damaging the motor. 
- // delay(1000);
   myservo.write(90);
-
 }
 
 long oldPosition  = -999;
