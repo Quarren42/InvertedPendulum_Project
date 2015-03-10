@@ -1,4 +1,3 @@
-#include <PID_AutoTune_v0.h>
 #include <PID_v1.h>
 #include <Wire.h>
 #include <Encoder.h>
@@ -10,7 +9,6 @@ Encoder myEnc(2, 3);
 
 const int leftLimitSwitch = 4;
 const int rightLimitSwitch = 5;
-
 
 double Kp, Ki, Kd, Pu, Ku, KpIn, KiIn, KdIn;
 int tempSpeed;
@@ -52,7 +50,7 @@ void setup()
 
   Serial.begin(9600);
 
-  myPID.SetOutputLimits(-65, 65); //0 and 180 draw too much power
+  myPID.SetOutputLimits(-90, 90); //range from 0-180; use -90 to 90 because the encoder measures -2048 to 2048
   myPID.SetMode(AUTOMATIC);
   myPID.SetSampleTime(50);
 
@@ -77,10 +75,6 @@ void loop()
     Input = (newPosition - 2048);
   }
 
-  // Serial.print("#S|LOGTEST|[");
-  //Serial.print(itoa((Input), buffer, 10));
-  //Serial.println("]#");
-
   time = millis();
 
   Serial.print(Input);
@@ -91,8 +85,6 @@ void loop()
   //Serial.print(tempSpeed);
   Serial.print('\n'); 
 
-
-  //myPID.SetTunings(Kp, Ki, Kd);
   myPID.Compute(); 
 
   while ((digitalRead(leftLimitSwitch)) == LOW || (digitalRead(rightLimitSwitch) == LOW)){
