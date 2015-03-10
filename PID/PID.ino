@@ -31,7 +31,7 @@ long time, oldTime;
 //^^^ all for PD controller
 
 
-#define Kp 0.7  //50 for tuning
+#define Kp 1.65  //50 for tuning
 #define Ki  0
 #define Kd  0
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
