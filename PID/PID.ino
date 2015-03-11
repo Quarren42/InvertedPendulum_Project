@@ -15,11 +15,11 @@ int tempSpeed;
 double Setpoint, Input, Output;
 long time, oldTime;
 
-//Tu = 0.27 //Tu is the oscillation period
-//Ku = 50 //Ku is the ultimate gain (value of P used to get the constant oscillation)
-//Kp = 0.6 * Ku; //30
-//Ki = (2 * Kp / Tu);  //222.22
-//Kd = (Kp * Tu) / 8; //1.0125
+//Tu = 0.1358 //Tu is the oscillation period
+//Ku = 2.1 //Ku is the ultimate gain (value of P used to get the constant oscillation)
+//Kp = 0.6 * Ku; //1.26
+//Ki = (2 * Kp / Tu);  //18.5567010309278
+//Kd = (Kp * Tu) / 8; //0.0213885
 
 //^^^ all for PID controller
 
@@ -31,9 +31,9 @@ long time, oldTime;
 //^^^ all for PD controller
 
 
-#define Kp 1.65  //50 for tuning
-#define Ki  0
-#define Kd  0
+#define Kp 1.26  //2.1, 1.65
+#define Ki  18.556701
+#define Kd  0.0213885
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
 
 // PID_ATune aTune(&Input, &Output);
@@ -50,7 +50,7 @@ void setup()
 
   Serial.begin(9600);
 
-  myPID.SetOutputLimits(-90, 90); //range from 0-180; use -90 to 90 because the encoder measures -2048 to 2048
+  myPID.SetOutputLimits(-45, 45); //range from 0-180; use -90 to 90 because the encoder measures -2048 to 2048
   myPID.SetMode(AUTOMATIC);
   myPID.SetSampleTime(50);
 
@@ -78,9 +78,9 @@ void loop()
   time = millis();
 
   Serial.print(Input);
- // Serial.print(", ");
+ Serial.print(", ");
   //Serial.print(time);
- // Serial.print(Output);
+ Serial.print(Output);
  // Serial.print(", ");
   //Serial.print(tempSpeed);
   Serial.print('\n'); 
@@ -91,7 +91,7 @@ void loop()
     stop();
   }
   
-   tempSpeed = Output + 90;
+   tempSpeed = Output + 45; //add the limit of the PID equation; 90 for full speed, 45 for half speed
   myservo.write(tempSpeed);
   
 }
