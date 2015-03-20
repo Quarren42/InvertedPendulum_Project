@@ -1,13 +1,4 @@
-// Pro_Graph2.pde
-/*
- Used in the Youtube video "Arduino and Processing ( Graph Example )"
- Based in the Tom Igoe example.
- Mofified by Arduining 17 Mar 2012:
-  -A wider line was used. strokeWeight(4);
-  -Continuous line instead of vertical lines.
-  -Bigger Window size 600x400.
--------------------------------------------------------------------------------
-This program takes ASCII-encoded strings
+/* This program takes ASCII-encoded strings
 from the serial port at 9600 baud and graphs them. It expects values in the
 range 0 to 1023, followed by a newline, or newline and carriage return
 

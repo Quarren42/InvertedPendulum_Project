@@ -15,11 +15,11 @@ int tempSpeed;
 double Setpoint, Input, Output;
 long time, oldTime;
 
-//Tu = 0.1358 //Tu is the oscillation period
-//Ku = 2.1 //Ku is the ultimate gain (value of P used to get the constant oscillation)
-//Kp = 0.6 * Ku; //1.26
-//Ki = (2 * Kp / Tu);  //18.5567010309278
-//Kd = (Kp * Tu) / 8; //0.0213885
+//Tu = 0.357167 //Tu is the oscillation period
+//Ku = 0.333 //Ku is the ultimate gain (value of P used to get the constant oscillation)
+//Kp = 0.6 * Ku; //0.1998
+//Ki = (2 * Kp / Tu);  //1.118804
+//Kd = (Kp * Tu) / 8; //0.071361
 
 //^^^ all for PID controller
 
@@ -31,12 +31,11 @@ long time, oldTime;
 //^^^ all for PD controller
 
 
-#define Kp 1.26  //2.1, 1.65
-#define Ki  18.556701
-#define Kd  0.0213885
-PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
+#define Kp 0.333 //0.1988  0.33 - 0.34 (0.3 - 0.4) lower than 0.331, above 0.33
+#define Ki  0 //1.1188043688 18.556701
+#define Kd  0 //0.0713619666 0.0213885
 
-// PID_ATune aTune(&Input, &Output);
+PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
 
 int value = 877;
 char buffer[5];
@@ -50,8 +49,8 @@ void setup()
 
   Serial.begin(9600);
 
-  myPID.SetOutputLimits(-45, 45); //range from 0-180; use -90 to 90 because the encoder measures -2048 to 2048
-  myPID.SetMode(AUTOMATIC);
+  myPID.SetOutputLimits(-25, 25); //range from -25 to 25
+  myPID.SetMode(AUTOMATIC);      //motor starts at 12 speed, so add/subtract 12
   myPID.SetSampleTime(50);
 
   Setpoint = 0;
@@ -78,10 +77,10 @@ void loop()
   time = millis();
 
   Serial.print(Input);
- Serial.print(", ");
-  //Serial.print(time);
- Serial.print(Output);
  // Serial.print(", ");
+  //Serial.print(time);
+  //Serial.print(Output);
+  //Serial.print(", ");
   //Serial.print(tempSpeed);
   Serial.print('\n'); 
 
@@ -91,7 +90,18 @@ void loop()
     stop();
   }
   
-   tempSpeed = Output + 45; //add the limit of the PID equation; 90 for full speed, 45 for half speed
+   tempSpeed = Output + 90;  //add the limit of the PID equation; 90 for full speed, 45 for half speed
+   
+   if (tempSpeed > 90){
+     tempSpeed = tempSpeed + 12;
+   }
+   
+   else if (tempSpeed < 90){
+     tempSpeed = tempSpeed - 12;
+   }  
+     
+  
+  
   myservo.write(tempSpeed);
   
 }
