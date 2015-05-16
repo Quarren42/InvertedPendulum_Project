@@ -51,7 +51,7 @@ void setup()
 
   myPID.SetOutputLimits(-25, 25); //range from -25 to 25
   myPID.SetMode(AUTOMATIC);      //motor starts at 12 speed, so add/subtract 12
-  myPID.SetSampleTime(50);
+  myPID.SetSampleTime(10);
 
   Setpoint = 0;
 
