@@ -31,7 +31,7 @@ long time, oldTime;
 //^^^ all for PD controller
 
 
-#define Kp 0.333 //0.1988  0.33 - 0.34 (0.3 - 0.4) lower than 0.331, above 0.33
+#define Kp  1.4 //0.1988  0.33 - 0.34 (0.3 - 0.4) lower than 0.331, above 0.33
 #define Ki  0 //1.1188043688 18.556701
 #define Kd  0 //0.0713619666 0.0213885
 
