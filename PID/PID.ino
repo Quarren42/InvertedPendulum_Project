@@ -67,7 +67,6 @@ long oldPosition  = -999;
 void loop()
 {
 
-
   long newPosition = myEnc.read();
   if (newPosition != oldPosition) {
     oldPosition = newPosition;
