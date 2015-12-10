@@ -44,7 +44,7 @@ void serialEvent (Serial myPort) {
     inString = trim(inString);                // trim off whitespaces.
     float inByte = float(inString);           // convert to a number.
    inByte = inByte;
-    inByte = map(inByte, -50, 50, 0, height); //map to the screen height.
+    inByte = map(inByte, 0, 50, 0, height); //map to the screen height. //-50, 50, 0, height
 
     //Drawing a line from Last inByte to the new one.
     stroke(127,34,255);     //stroke color
